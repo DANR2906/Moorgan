@@ -1,5 +1,7 @@
 package com.moorgan.model;
 
+import java.util.List;
+
 /**
  * Wallet model
  *

@@ -22,6 +22,9 @@ public class BalanceHistory {
     private String description;
 
     //
+    private Wallet wallet;
+
+    //
     private Job job;
 
     //
@@ -45,13 +48,14 @@ public class BalanceHistory {
      * @param expense
      * @param status
      */
-    public BalanceHistory(int id, long value, Date entryDate, String description, Job job,
-                          Income income, Expense expense, Status status) {
+    public BalanceHistory(int id, long value, Date entryDate, String description, Wallet wallet,
+                          Job job, Income income, Expense expense, Status status) {
 
         this.id = id;
         this.value = value;
         this.entryDate = entryDate;
         this.description = description;
+        this.wallet = wallet;
         this.job = job;
         this.income = income;
         this.expense = expense;
@@ -97,6 +101,14 @@ public class BalanceHistory {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     public Job getJob() {

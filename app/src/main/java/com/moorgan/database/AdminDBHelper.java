@@ -133,7 +133,10 @@ public class AdminDBHelper extends SQLiteOpenHelper {
                 "job_creation_date Date NOT NULL DEFAULT (CURRENT_DATE)," +
                 "job_payment integer," +
                 "job_finished boolean NOT NULL," +
-                "job_end_date Date )");
+                "job_end_date Date," +
+                "job_user integer," +
+                "FOREIGN KEY (job_user)" +
+                "   REFERENCES "  + MOORGAN_TABLE_USER + "(use_id)" + ")");
 
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_CLIENT_JOB + "(" +
                 "client_id integer NOT NULL," +

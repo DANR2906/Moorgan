@@ -1,5 +1,25 @@
 <resources>
     <string name="app_name">Moorgan</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- TODO: Register 1 -->
+
+    <string name="name_information">Ingrese su nombre</string>
+    <string name="name_hint">Nombre</string>
+
+    <string name="last_name_information">Ingrese su apellido</string>
+    <string name="last_name_hint">Apellido</string>
+
+    <!-- TODO: Register 2 -->
+
+    <string name="birthdate_information">Ingrese su fecha de nacimiento</string>
+    <string name="birthdate_hint">Fecha de nacimiento</string>
+
+    <string name="career_information">Ingrese su profesión</string>
+    <string name="career_hint">Profesión</string>
+
+    <!-- TODO: Register Activity -->
+
+    <string name="toast_no_more_pages">No hay mas páginas</string>
+
 </resources>

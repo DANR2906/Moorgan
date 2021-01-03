@@ -56,7 +56,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
      * @param context
      */
     public AdminDBHelper(@Nullable Context context) {
-        super(context, this.MOORGAN_DB_NAME, null, this.MOORGAN_DB_VERSION);
+        super(context, MOORGAN_DB_NAME, null, MOORGAN_DB_VERSION);
     }
 
     /**

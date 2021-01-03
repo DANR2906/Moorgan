@@ -15,6 +15,10 @@ public class AdminDBHelper extends SQLiteOpenHelper {
     //
     private static final String MOORGAN_TABLE_USER = "user";
     //
+    private static final String MOORGAN_TABLE_USER_JOB = "user_job";
+    //
+    private static final String MOORGAN_TABLE_USER_CLIENT = "user_client";
+    //
     private static final String MOORGAN_TABLE_WALLET = "wallet";
     //
     private static final String MOORGAN_TABLE_INCOME = "income";
@@ -23,7 +27,13 @@ public class AdminDBHelper extends SQLiteOpenHelper {
     //
     private static final String MOORGAN_TABLE_BALANCE_HISTORY = "balanceHistory";
     //
-    private static final String MOORGAN_TABLE_BALANCE_HISTORY_TYPE = "balanceHistory_type";
+    private static final String MOORGAN_TABLE_BALANCE_HISTORY_JOB = "balanceHistory_job";
+    //
+    private static final String MOORGAN_TABLE_BALANCE_HISTORY_INCOME = "balanceHistory_income";
+    //
+    private static final String MOORGAN_TABLE_BALANCE_HISTORY_EXPENSE = "balanceHistory_expense";
+    //
+    private static final String MOORGAN_TABLE_BALANCE_HISTORY_STATUS = "balanceHistory_status";
     //
     private static final String MOORGAN_TABLE_JOB = "job";
     //
@@ -65,6 +75,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_USER  + "(" +
                 "use_id integer PRIMARY KEY AUTOINCREMENT," +
                 "use_name varchar(30) NOT NULL," +
@@ -74,6 +85,24 @@ public class AdminDBHelper extends SQLiteOpenHelper {
                 "use_wallet integer NOT NULL," +
                 "FOREIGN KEY (use_wallet)" +
                 "   REFERENCES " + MOORGAN_TABLE_WALLET + " (wal_id) )");
+
+        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_USER_JOB + "(" +
+                "user_id integer NOT NULL," +
+                "job_id integer NOT NULL," +
+                "FOREIGN KEY (user_id)" +
+                "   REFERENCES " + MOORGAN_TABLE_USER + "(use_id)," +
+                "FOREIGN KEY (job_id) " +
+                "   REFERENCES " + MOORGAN_TABLE_JOB + "(job_id)," +
+                "PRIMARY KEY (user_id, job_id) )");
+
+        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_USER_CLIENT + "(" +
+                "user_id integer NOT NULL," +
+                "client_id integer NOT NULL," +
+                "FOREIGN KEY (user_id)" +
+                "   REFERENCES " + MOORGAN_TABLE_USER + "(use_id)," +
+                "FOREIGN KEY (client_id) " +
+                "   REFERENCES " + MOORGAN_TABLE_CLIENT + "(cli_id)," +
+                "PRIMARY KEY (user_id, client_id) )");
 
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_WALLET + "(" +
                 "wal_id integer PRIMARY KEY AUTOINCREMENT," +
@@ -103,21 +132,41 @@ public class AdminDBHelper extends SQLiteOpenHelper {
                 "   REFERENCES " + MOORGAN_TABLE_WALLET + "(wal_id) )");
 
 
-        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_BALANCE_HISTORY_TYPE + "(" +
+        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_BALANCE_HISTORY_JOB + "(" +
                 "balanceHistory_id integer," +
                 "job_id integer," +
-                "income_id integer," +
-                "expense_id integer," +
-                "status_id integer," +
+                "FOREIGN KEY (balanceHistory_id)" +
+                "   REFERENCES " + MOORGAN_TABLE_BALANCE_HISTORY + "(bal_id)," +
                 "FOREIGN KEY (job_id)" +
                 "   REFERENCES " + MOORGAN_TABLE_JOB + "(job_id),"+
+                "PRIMARY KEY (balanceHistory_id, job_id))");
+
+        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_BALANCE_HISTORY_INCOME + "(" +
+                "balanceHistory_id integer," +
+                "income_id integer," +
+                "FOREIGN KEY (balanceHistory_id)" +
+                "   REFERENCES " + MOORGAN_TABLE_BALANCE_HISTORY + "(bal_id)," +
                 "FOREIGN KEY (income_id)" +
                 "   REFERENCES " + MOORGAN_TABLE_INCOME + "(inc_id)," +
+                "PRIMARY KEY (balanceHistory_id, income_id))");
+
+        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_BALANCE_HISTORY_EXPENSE + "(" +
+                "balanceHistory_id integer," +
+                "expense_id integer," +
+                "FOREIGN KEY (balanceHistory_id)" +
+                "   REFERENCES " + MOORGAN_TABLE_BALANCE_HISTORY + "(bal_id)," +
                 "FOREIGN KEY (expense_id)" +
                 "   REFERENCES " + MOORGAN_TABLE_EXPENSE + "(exp_id)," +
+                "PRIMARY KEY (balanceHistory_id, expense_id))");
+
+        db.execSQL("CREATE TABLE " + MOORGAN_TABLE_BALANCE_HISTORY_STATUS + "(" +
+                "balanceHistory_id integer," +
+                "status_id integer," +
+                "FOREIGN KEY (balanceHistory_id)" +
+                "   REFERENCES " + MOORGAN_TABLE_BALANCE_HISTORY + "(bal_id)," +
                 "FOREIGN KEY (status_id)" +
                 "   REFERENCES " + MOORGAN_TABLE_STATUS + "(sta_id)," +
-                "PRIMARY KEY (balanceHistory_id, job_id, income_id, expense_id, status_id))");
+                "PRIMARY KEY (balanceHistory_id, status_id))");
 
 
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_CLIENT + "(" +
@@ -159,7 +208,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_STATUS + "(" +
                 "sta_id integer PRIMARY KEY AUTOINCREMENT," +
                 "sta_name varchar(50) NOT NULL," +
-                "sta_advance_balance integer," +
+                "sta_advance_payment integer," +
                 "sta_approve boolean NOT NULL)");
 
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_TASK + "(" +

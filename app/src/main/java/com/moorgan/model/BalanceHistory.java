@@ -13,13 +13,16 @@ public class BalanceHistory {
     private int id;
 
     //
-    private long value;
+    private long amount;
 
     //
     private Date entryDate;
 
     //
     private String description;
+
+    //
+    private Wallet wallet;
 
     //
     private Job job;
@@ -37,7 +40,7 @@ public class BalanceHistory {
      * Class constructor
      *
      * @param id
-     * @param value
+     * @param amount
      * @param entryDate
      * @param description
      * @param job
@@ -45,13 +48,14 @@ public class BalanceHistory {
      * @param expense
      * @param status
      */
-    public BalanceHistory(int id, long value, Date entryDate, String description, Job job,
-                          Income income, Expense expense, Status status) {
+    public BalanceHistory(int id, long amount, Date entryDate, String description, Wallet wallet,
+                          Job job, Income income, Expense expense, Status status) {
 
         this.id = id;
-        this.value = value;
+        this.amount = amount;
         this.entryDate = entryDate;
         this.description = description;
+        this.wallet = wallet;
         this.job = job;
         this.income = income;
         this.expense = expense;
@@ -75,12 +79,12 @@ public class BalanceHistory {
         this.id = id;
     }
 
-    public long getValue() {
-        return value;
+    public long getAmount() {
+        return amount;
     }
 
-    public void setValue(long value) {
-        this.value = value;
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
     public Date getEntryDate() {
@@ -97,6 +101,14 @@ public class BalanceHistory {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     public Job getJob() {

@@ -18,8 +18,13 @@
     <string name="career_information">Ingrese su profesión</string>
     <string name="career_hint">Profesión</string>
 
+    <!-- TODO: Register 2 -->
+    <string name="msg">Tu perfil esta completo</string>
+
     <!-- TODO: Register Activity -->
 
     <string name="toast_no_more_pages">No hay mas páginas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

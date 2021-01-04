@@ -14,13 +14,14 @@ import android.widget.Toast;
 
 import com.moorgan.Fragments.Register1;
 import com.moorgan.Fragments.Register2;
+import com.moorgan.Fragments.Register3;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 3;
 
     private ViewPager viewPager;
 
@@ -50,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         fragments.add(new Register1());
         fragments.add(new Register2());
+        fragments.add(new Register3());
 
     }
 

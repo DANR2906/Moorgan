@@ -24,6 +24,12 @@
     <!-- TODO: Register Activity -->
 
     <string name="toast_no_more_pages">No hay mas páginas</string>
+
+    <!-- TODO: Job Item -->
+
+    <string name="more_information">Más información</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

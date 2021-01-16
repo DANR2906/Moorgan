@@ -37,7 +37,8 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="20dp"
             android:hint="@string/birthdate_hint"
-            android:background="@drawable/register_field_border"/>
+            android:background="@drawable/register_field_border"
+            android:focusable="false"/>
 
         <TextView
             android:id="@+id/career_information"

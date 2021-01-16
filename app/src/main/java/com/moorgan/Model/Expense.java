@@ -1,11 +1,11 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
 /**
- * Income model
+ * Expense model
  *
  * @author DANR
  */
-public class Income {
+public class Expense {
 
     //
     private int id;
@@ -27,7 +27,7 @@ public class Income {
      * @param balanceHistory
      * @param wallet
      */
-    public Income(int id, String title, BalanceHistory balanceHistory, Wallet wallet) {
+    public Expense(int id, String title, BalanceHistory balanceHistory, Wallet wallet) {
         this.id = id;
         this.title = title;
         this.balanceHistory = balanceHistory;
@@ -38,11 +38,10 @@ public class Income {
      * Class constructor
      *
      */
-    public Income(){
+    public Expense(){
 
     }
-
-
+    
     public int getId() {
         return id;
     }

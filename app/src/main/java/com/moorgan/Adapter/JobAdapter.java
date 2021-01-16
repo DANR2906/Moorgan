@@ -1,8 +1,6 @@
 package com.moorgan.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moorgan.R;
-import com.moorgan.model.Job;
-import com.moorgan.model.Status;
+import com.moorgan.Model.Job;
+import com.moorgan.Model.Status;
 
 import java.util.List;
 
@@ -102,7 +100,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
 
         for (Status status : job.getStatus()){
 
-            if(!status.isApproved())
+            if(! (status.getApproved() == 1) )
                 if(status.getId() <= auxId) {
                     auxId = status.getId();
                     rStatus = status;

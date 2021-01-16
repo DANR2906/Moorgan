@@ -1,4 +1,4 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
 
 import java.util.Date;
@@ -21,7 +21,7 @@ public class User {
     private String lastName;
 
     //
-    private Date birthDate;
+    private String birthDate;
 
     //
     private String career;
@@ -50,7 +50,7 @@ public class User {
      * @param clients   User clients id
      *
      */
-    public User(int id, String name, String lastName, Date birthDate, String career,
+    public User(int id, String name, String lastName, String birthDate, String career,
                 Wallet wallet, List<Job> jobs, List<Client> clients) {
 
         this.id = id;
@@ -60,7 +60,7 @@ public class User {
         this.career = career;
         this.wallet = wallet;
         this.jobs = jobs;
-        this.clients = this.clients;
+        this.clients = clients;
 
     }
 
@@ -130,7 +130,7 @@ public class User {
      *
      * @return User birth date
      */
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
@@ -139,7 +139,7 @@ public class User {
      *
      * @param birthDate User birth date
      */
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

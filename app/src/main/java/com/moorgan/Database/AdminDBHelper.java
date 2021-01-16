@@ -1,4 +1,4 @@
-package com.moorgan.database;
+package com.moorgan.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,45 +9,45 @@ import androidx.annotation.Nullable;
 public class AdminDBHelper extends SQLiteOpenHelper {
 
     //
-    private static final String MOORGAN_DB_NAME = "moorganDB";
+    public static final String MOORGAN_DB_NAME = "moorganDB";
     //
-    private static final int MOORGAN_DB_VERSION = 1;
+    public static final int MOORGAN_DB_VERSION = 1;
     //
-    private static final String MOORGAN_TABLE_USER = "user";
+    public static final String MOORGAN_TABLE_USER = "user";
     //
-    private static final String MOORGAN_TABLE_USER_JOB = "user_job";
+    public static final String MOORGAN_TABLE_USER_JOB = "user_job";
     //
-    private static final String MOORGAN_TABLE_USER_CLIENT = "user_client";
+    public static final String MOORGAN_TABLE_USER_CLIENT = "user_client";
     //
-    private static final String MOORGAN_TABLE_WALLET = "wallet";
+    public static final String MOORGAN_TABLE_WALLET = "wallet";
     //
-    private static final String MOORGAN_TABLE_INCOME = "income";
+    public static final String MOORGAN_TABLE_INCOME = "income";
     //
-    private static final String MOORGAN_TABLE_EXPENSE = "expense";
+    public static final String MOORGAN_TABLE_EXPENSE = "expense";
     //
-    private static final String MOORGAN_TABLE_BALANCE_HISTORY = "balanceHistory";
+    public static final String MOORGAN_TABLE_BALANCE_HISTORY = "balanceHistory";
     //
-    private static final String MOORGAN_TABLE_BALANCE_HISTORY_JOB = "balanceHistory_job";
+    public static final String MOORGAN_TABLE_BALANCE_HISTORY_JOB = "balanceHistory_job";
     //
-    private static final String MOORGAN_TABLE_BALANCE_HISTORY_INCOME = "balanceHistory_income";
+    public static final String MOORGAN_TABLE_BALANCE_HISTORY_INCOME = "balanceHistory_income";
     //
-    private static final String MOORGAN_TABLE_BALANCE_HISTORY_EXPENSE = "balanceHistory_expense";
+    public static final String MOORGAN_TABLE_BALANCE_HISTORY_EXPENSE = "balanceHistory_expense";
     //
-    private static final String MOORGAN_TABLE_BALANCE_HISTORY_STATUS = "balanceHistory_status";
+    public static final String MOORGAN_TABLE_BALANCE_HISTORY_STATUS = "balanceHistory_status";
     //
-    private static final String MOORGAN_TABLE_JOB = "job";
+    public static final String MOORGAN_TABLE_JOB = "job";
     //
-    private static final String MOORGAN_TABLE_CLIENT = "client";
+    public static final String MOORGAN_TABLE_CLIENT = "client";
     //
-    private static final String MOORGAN_TABLE_CLIENT_JOB= "client_job";
+    public static final String MOORGAN_TABLE_CLIENT_JOB= "client_job";
     //
-    private static final String MOORGAN_TABLE_JOB_STATUS = "job_status";
+    public static final String MOORGAN_TABLE_JOB_STATUS = "job_status";
     //
-    private static final String MOORGAN_TABLE_STATUS = "status";
+    public static final String MOORGAN_TABLE_STATUS = "status";
     //
-    private static final String MOORGAN_TABLE_TASK = "task";
+    public static final String MOORGAN_TABLE_TASK = "task";
     //
-    private static final String MOORGAN_TABLE_STATUS_TASK = "status_task";
+    public static final String MOORGAN_TABLE_STATUS_TASK = "status_task";
 
 
     /**
@@ -181,7 +181,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
                 "job_name varchar(100) NOT NULL," +
                 "job_creation_date Date NOT NULL DEFAULT (CURRENT_DATE)," +
                 "job_payment integer," +
-                "job_finished boolean NOT NULL," +
+                "job_finished integer NOT NULL," +
                 "job_end_date Date," +
                 "job_user integer," +
                 "FOREIGN KEY (job_user)" +
@@ -199,7 +199,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_JOB_STATUS + "(" +
                 "job_id integer," +
                 "status_id integer," +
-                "FOREIGN KEY (client_id)" +
+                "FOREIGN KEY (job_id)" +
                 "   REFERENCES " + MOORGAN_TABLE_JOB + "(job_id)," +
                 "FOREIGN KEY (status_id) " +
                 "   REFERENCES " + MOORGAN_TABLE_STATUS + "(sta_id)," +
@@ -209,13 +209,13 @@ public class AdminDBHelper extends SQLiteOpenHelper {
                 "sta_id integer PRIMARY KEY AUTOINCREMENT," +
                 "sta_name varchar(50) NOT NULL," +
                 "sta_advance_payment integer," +
-                "sta_approve boolean NOT NULL)");
+                "sta_approve integer NOT NULL)");
 
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_TASK + "(" +
                 "tas_id integer PRIMARY KEY AUTOINCREMENT," +
                 "tas_name varchar(100) NOT NULL, " +
                 "tas_description text," +
-                "tas_approve boolean NOT NULL)");
+                "tas_approve integer NOT NULL)");
 
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_STATUS_TASK + "(" +
                 "status_id integer," +

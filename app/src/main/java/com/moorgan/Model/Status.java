@@ -1,5 +1,6 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Status {
     private long advancePayment;
 
     //
-    private boolean approved;
+    private int approved;
 
     //
     private List<StatusTask> statusTasks;
@@ -37,7 +38,7 @@ public class Status {
      * @param statusTasks
      * @param balanceHistory
      */
-    public Status(int id, String name, long advancePayment, boolean approved, List<StatusTask> statusTasks,
+    public Status(int id, String name, long advancePayment, int approved, List<StatusTask> statusTasks,
                   List<BalanceHistory> balanceHistory) {
 
         this.id = id;
@@ -47,6 +48,7 @@ public class Status {
         this.statusTasks = statusTasks;
         this.balanceHistory = balanceHistory;
     }
+
 
     /**
      * Class constructor
@@ -81,11 +83,11 @@ public class Status {
         this.advancePayment = advancePayment;
     }
 
-    public boolean isApproved() {
+    public int getApproved() {
         return approved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(int approved) {
         this.approved = approved;
     }
 

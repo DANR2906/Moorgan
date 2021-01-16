@@ -1,4 +1,4 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class BalanceHistory {
     private long amount;
 
     //
-    private Date entryDate;
+    private String entryDate;
 
     //
     private String description;
@@ -48,7 +48,7 @@ public class BalanceHistory {
      * @param expense
      * @param status
      */
-    public BalanceHistory(int id, long amount, Date entryDate, String description, Wallet wallet,
+    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet,
                           Job job, Income income, Expense expense, Status status) {
 
         this.id = id;
@@ -59,6 +59,78 @@ public class BalanceHistory {
         this.job = job;
         this.income = income;
         this.expense = expense;
+        this.status = status;
+    }
+
+    /**
+     *
+     * @param id
+     * @param amount
+     * @param entryDate
+     * @param description
+     * @param wallet
+     * @param job
+     */
+    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Job job) {
+        this.id = id;
+        this.amount = amount;
+        this.entryDate = entryDate;
+        this.description = description;
+        this.wallet = wallet;
+        this.job = job;
+    }
+
+    /**
+     *
+     * @param id
+     * @param amount
+     * @param entryDate
+     * @param description
+     * @param wallet
+     * @param income
+     */
+    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Income income) {
+        this.id = id;
+        this.amount = amount;
+        this.entryDate = entryDate;
+        this.description = description;
+        this.wallet = wallet;
+        this.income = income;
+    }
+
+    /**
+     *
+     * @param id
+     * @param amount
+     * @param entryDate
+     * @param description
+     * @param wallet
+     * @param expense
+     */
+    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Expense expense) {
+        this.id = id;
+        this.amount = amount;
+        this.entryDate = entryDate;
+        this.description = description;
+        this.wallet = wallet;
+        this.expense = expense;
+    }
+
+    /**
+     *
+     * @param id
+     * @param amount
+     * @param entryDate
+     * @param description
+     * @param wallet
+     * @param status
+     */
+    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Status status) {
+        this.id = id;
+        this.amount = amount;
+        this.entryDate = entryDate;
+        this.description = description;
+        this.wallet = wallet;
         this.status = status;
     }
 
@@ -87,11 +159,11 @@ public class BalanceHistory {
         this.amount = amount;
     }
 
-    public Date getEntryDate() {
+    public String getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(Date entryDate) {
+    public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
     }
 

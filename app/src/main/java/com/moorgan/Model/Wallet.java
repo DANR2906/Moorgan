@@ -1,5 +1,6 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class Wallet {
         this.incomes = incomes;
         this.expenses = expenses;
     }
+
 
     /**
      * Class constructor

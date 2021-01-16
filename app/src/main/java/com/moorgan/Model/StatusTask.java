@@ -1,4 +1,4 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
 
 public class StatusTask {
@@ -13,7 +13,7 @@ public class StatusTask {
     private String description;
 
     //
-    private boolean approve;
+    private int approve;
 
     /**
      * Class constructor
@@ -23,7 +23,7 @@ public class StatusTask {
      * @param description
      * @param approve
      */
-    public StatusTask(int id, String name, String description, boolean approve) {
+    public StatusTask(int id, String name, String description, int approve) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -62,11 +62,11 @@ public class StatusTask {
         this.description = description;
     }
 
-    public boolean isApprove() {
+    public int getApprove() {
         return approve;
     }
 
-    public void setApprove(boolean approve) {
+    public void setApprove(int approve) {
         this.approve = approve;
     }
 }

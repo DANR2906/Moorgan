@@ -1,4 +1,4 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
 import java.util.Date;
 import java.util.List;
@@ -17,16 +17,16 @@ public class Job {
     private String name;
 
     //
-    private Date creationDate;
+    private String creationDate;
 
     //
-    private Date endDate;
+    private String endDate;
 
     //
     private long payment;
 
     //
-    private boolean finished;
+    private int finished;
 
     //
     private User user;
@@ -54,8 +54,8 @@ public class Job {
      * @param clients
      * @param status
      */
-    public Job(int id, String name, Date creationDate, Date endDate, long payment,
-               boolean finished, User user, List<BalanceHistory> balanceHistory,
+    public Job(int id, String name, String creationDate, String endDate, long payment,
+               int finished, User user, List<BalanceHistory> balanceHistory,
                List<Client> clients, List<Status> status) {
 
         this.id = id;
@@ -78,7 +78,6 @@ public class Job {
 
     }
 
-
     public int getId() {
         return id;
     }
@@ -95,19 +94,19 @@ public class Job {
         this.name = name;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -119,11 +118,11 @@ public class Job {
         this.payment = payment;
     }
 
-    public boolean isFinished() {
+    public int getFinished() {
         return finished;
     }
 
-    public void setFinished(boolean finished) {
+    public void setFinished(int finished) {
         this.finished = finished;
     }
 

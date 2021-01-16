@@ -1,4 +1,4 @@
-package com.moorgan.model;
+package com.moorgan.Model;
 
 
 import java.util.List;

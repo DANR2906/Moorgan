@@ -5,10 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.moorgan.Adapter.JobAdapter;
-import com.moorgan.model.Job;
+import com.moorgan.Model.Job;
 
 import java.util.ArrayList;
 import java.util.List;

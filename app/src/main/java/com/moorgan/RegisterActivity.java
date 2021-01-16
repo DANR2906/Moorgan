@@ -1,6 +1,7 @@
 package com.moorgan;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringDef;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,24 +9,36 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.moorgan.Adapter.JobAdapter;
 import com.moorgan.Fragments.Register1;
 import com.moorgan.Fragments.Register2;
 import com.moorgan.Fragments.Register3;
+import com.moorgan.IRepositories.IWalletRepository;
+import com.moorgan.Model.Wallet;
+import com.moorgan.Repositories.WalletRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int NUM_PAGES = 3;
 
-    private ViewPager viewPager;
+    private SwipeDisableViewPager viewPager;
 
     private PagerAdapter pagerAdapter;
+
+    private List<Fragment> fragments;
 
 
     @Override
@@ -35,13 +48,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager);
 
-        List<Fragment> fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
+
         addFragments(fragments);
 
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), fragments);
 
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setEnabled(false);
     }
+
+
 
     /**
      * This method fill the list whit the fragments
@@ -58,11 +75,34 @@ public class RegisterActivity extends AppCompatActivity {
     public void goToRightPage(View view){
 
         int currentPage = viewPager.getCurrentItem();
-        
-        if(currentPage >= NUM_PAGES-1)
+
+        //Revisar -------------------------------------------------------------------------------
+        if(currentPage == NUM_PAGES-1){
+            IWalletRepository walletRepository = new WalletRepository(this);
+            walletRepository.insert(1,100);
+            Wallet w = walletRepository.findByID(1);
+            
+            if(w != null) {
+                String s = w.getId() + " / " + w.getBalance();
+                Toast.makeText(this, "" + s, Toast.LENGTH_SHORT).show();
+            }
+
+            Toast.makeText(this, "Total: " + walletRepository.findAll().size(), Toast.LENGTH_SHORT).show();
+
+        } else if(currentPage > NUM_PAGES-1)
             Toast.makeText(this, getString(R.string.toast_no_more_pages), Toast.LENGTH_SHORT).show();
-        else
+        else {
             viewPager.setCurrentItem(currentPage + 1);
+
+            if((currentPage + 1 ) == 1)
+                ((Register1) fragments.get(0)).sendData();
+
+            if((currentPage + 1 ) == 2)
+                ((Register2) fragments.get(1)).sendData();
+
+        }
+
+
     }
 
     public void goToLeftPage(View view){
@@ -101,4 +141,6 @@ public class RegisterActivity extends AppCompatActivity {
             return NUM_PAGES;
         }
     }
+
+
 }

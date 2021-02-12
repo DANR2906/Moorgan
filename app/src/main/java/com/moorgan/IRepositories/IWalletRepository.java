@@ -36,4 +36,6 @@ public interface IWalletRepository {
      */
     List<Wallet> findAll();
 
+    boolean updateBalance(int walletID, long balance);
+
 }

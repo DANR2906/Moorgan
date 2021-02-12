@@ -79,6 +79,7 @@ public class IncomeRepository implements IIncomeRepository {
     @Override
     public List<Income> findAll() {
         List<Income> incomes = new ArrayList<>();
+        List<Integer> walletsID = new ArrayList<>();
 
         Cursor cursor = this.connection.getReadableDatabase().
                 query(AdminDBHelper.MOORGAN_TABLE_INCOME,
@@ -91,13 +92,19 @@ public class IncomeRepository implements IIncomeRepository {
 
         if(cursor.moveToFirst()){
             do{
-                incomes.add(new Income(cursor.getInt(0), cursor.getString(1),
-                        findBalanceHistory(cursor),
-                        (new WalletRepository(this.context).findByID(cursor.getInt(2)))));
-
+                incomes.add(new Income(cursor.getInt(0), cursor.getString(1)));
+                walletsID.add(cursor.getInt(2));
             }while(cursor.moveToNext());
         }
+
+        cursor.close();
         this.connection.getReadableDatabase().close();
+
+
+        for (int x = 0; x < incomes.size(); x++){
+            incomes.get(x).setBalanceHistory(findBalanceHistory(incomes.get(x).getId()));
+            incomes.get(x).setWallet(walletsID.get(x));
+        }
 
         return incomes;
     }
@@ -112,14 +119,16 @@ public class IncomeRepository implements IIncomeRepository {
                         + AdminDBHelper.MOORGAN_TABLE_INCOME + " WHERE inc_id ='" + id + "'" , null);
 
         if(cursor.moveToFirst()){
-
-            income = new Income(cursor.getInt(0), cursor.getString(1),
-                                findBalanceHistory(cursor),
-                    (new WalletRepository(this.context).findByID(cursor.getInt(2))));
+            income = new Income(cursor.getInt(0), cursor.getString(1));
+            income.setWallet(cursor.getInt(2));
         }
 
-
+        cursor.close();
         this.connection.getReadableDatabase().close();
+
+        income.setBalanceHistory(findBalanceHistory(income.getId()));
+
+
 
         return income;
     }
@@ -140,6 +149,7 @@ public class IncomeRepository implements IIncomeRepository {
         if(cursor.moveToLast())
             id = cursor.getInt(0);
 
+        cursor.close();
         this.connection.getReadableDatabase().close();
 
         return id;
@@ -172,23 +182,25 @@ public class IncomeRepository implements IIncomeRepository {
 
     /**
      *
-     * @param cursor
+     * @param incomeID
      * @return
      */
-    private BalanceHistory findBalanceHistory(Cursor cursor) {
+    private BalanceHistory findBalanceHistory(int incomeID) {
 
         int balanceHistoryID = 0;
 
 
-        Cursor cursor2 = this.connection.getReadableDatabase().
+        Cursor cursor = this.connection.getReadableDatabase().
                 rawQuery("SELECT * FROM "
                         + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_INCOME +
-                        " WHERE income_id ='" + cursor.getInt(0) + "'", null);
+                        " WHERE income_id ='" + incomeID + "'", null);
 
 
-        if (cursor2.moveToFirst())
-            balanceHistoryID = cursor2.getInt(0);
+        if (cursor.moveToFirst())
+            balanceHistoryID = cursor.getInt(0);
 
+        cursor.close();
+        this.connection.getReadableDatabase().close();
 
         return (new BalanceHistoryRepository(this.context)).findByID(balanceHistoryID);
     }

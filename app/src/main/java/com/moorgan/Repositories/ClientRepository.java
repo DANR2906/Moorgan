@@ -96,7 +96,7 @@ public class ClientRepository implements IClientRepository {
             do{
                 clients.add(new Client(cursor.getInt(0), cursor.getString(1),
                         findAllJobs(cursor),
-                        (new UserRepository(this.context)).findByID(cursor.getInt(2))));
+                        cursor.getInt(2)));
 
             }while(cursor.moveToNext());
         }
@@ -116,7 +116,7 @@ public class ClientRepository implements IClientRepository {
         if(cursor.moveToFirst())
             client = new Client(cursor.getInt(0), cursor.getString(1),
                                 findAllJobs(cursor),
-                    (new UserRepository(this.context)).findByID(cursor.getInt(2)));
+                                cursor.getInt(2));
 
 
         this.connection.getReadableDatabase().close();

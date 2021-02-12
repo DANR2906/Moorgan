@@ -20,7 +20,7 @@ public class Client {
     private List<Job> jobs;
 
     //
-    private User user;
+    private int user;
 
 
     /**
@@ -31,7 +31,7 @@ public class Client {
      * @param jobs
      * @param user
      */
-    public Client(int id, String name, List<Job> jobs, User user) {
+    public Client(int id, String name, List<Job> jobs, int user) {
         this.id = id;
         this.name = name;
         this.jobs = jobs;
@@ -79,11 +79,11 @@ public class Client {
         this.jobs = jobs;
     }
 
-    public User getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(int user) {
         this.user = user;
     }
 }

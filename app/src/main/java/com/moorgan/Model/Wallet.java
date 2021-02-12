@@ -45,6 +45,16 @@ public class Wallet {
         this.expenses = expenses;
     }
 
+    /**
+     * Class constructor
+     *
+     * @param id
+     * @param balance
+     */
+    public Wallet(int id, long balance) {
+        this.id = id;
+        this.balance = balance;
+    }
 
     /**
      * Class constructor

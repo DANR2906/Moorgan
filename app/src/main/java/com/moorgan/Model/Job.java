@@ -29,13 +29,13 @@ public class Job {
     private int finished;
 
     //
-    private User user;
+    private int user;
 
     //
-    private List<BalanceHistory> balanceHistory;
+    private List<Integer> balanceHistory;
 
     //
-    private List<Client> clients;
+    private List<Integer> clients;
 
     //
     private List<Status> status;
@@ -55,8 +55,8 @@ public class Job {
      * @param status
      */
     public Job(int id, String name, String creationDate, String endDate, long payment,
-               int finished, User user, List<BalanceHistory> balanceHistory,
-               List<Client> clients, List<Status> status) {
+               int finished, int user, List<Integer> balanceHistory,
+               List<Integer> clients, List<Status> status) {
 
         this.id = id;
         this.name = name;
@@ -126,27 +126,27 @@ public class Job {
         this.finished = finished;
     }
 
-    public User getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(int user) {
         this.user = user;
     }
 
-    public List<BalanceHistory> getBalanceHistory() {
+    public List<Integer> getBalanceHistory() {
         return balanceHistory;
     }
 
-    public void setBalanceHistory(List<BalanceHistory> balanceHistory) {
+    public void setBalanceHistory(List<Integer> balanceHistory) {
         this.balanceHistory = balanceHistory;
     }
 
-    public List<Client> getClients() {
+    public List<Integer> getClients() {
         return clients;
     }
 
-    public void setClients(List<Client> clients) {
+    public void setClients(List<Integer> clients) {
         this.clients = clients;
     }
 

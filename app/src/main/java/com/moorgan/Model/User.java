@@ -35,7 +35,6 @@ public class User {
     //
     private List<Client> clients;
 
-    //Este es mi comentario // Base de datos sqlite android
 
     /**
      * Class constructor

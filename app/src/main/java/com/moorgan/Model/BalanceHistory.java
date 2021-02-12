@@ -22,19 +22,9 @@ public class BalanceHistory {
     private String description;
 
     //
-    private Wallet wallet;
+    private int wallet;
 
-    //
-    private Job job;
-
-    //
-    private Income income;
-
-    //
-    private Expense expense;
-
-    //
-    private Status status;
+    private int type;
 
     /**
      * Class constructor
@@ -43,95 +33,31 @@ public class BalanceHistory {
      * @param amount
      * @param entryDate
      * @param description
-     * @param job
-     * @param income
-     * @param expense
-     * @param status
      */
-    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet,
-                          Job job, Income income, Expense expense, Status status) {
-
+    public BalanceHistory(int id, long amount, String entryDate, String description,
+                          int wallet, int type) {
         this.id = id;
         this.amount = amount;
         this.entryDate = entryDate;
         this.description = description;
         this.wallet = wallet;
-        this.job = job;
-        this.income = income;
-        this.expense = expense;
-        this.status = status;
+        this.type = type;
     }
 
     /**
-     *
+     * Class constructor
      * @param id
      * @param amount
      * @param entryDate
      * @param description
      * @param wallet
-     * @param job
      */
-    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Job job) {
+    public BalanceHistory(int id, long amount, String entryDate, String description, int wallet) {
         this.id = id;
         this.amount = amount;
         this.entryDate = entryDate;
         this.description = description;
         this.wallet = wallet;
-        this.job = job;
-    }
-
-    /**
-     *
-     * @param id
-     * @param amount
-     * @param entryDate
-     * @param description
-     * @param wallet
-     * @param income
-     */
-    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Income income) {
-        this.id = id;
-        this.amount = amount;
-        this.entryDate = entryDate;
-        this.description = description;
-        this.wallet = wallet;
-        this.income = income;
-    }
-
-    /**
-     *
-     * @param id
-     * @param amount
-     * @param entryDate
-     * @param description
-     * @param wallet
-     * @param expense
-     */
-    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Expense expense) {
-        this.id = id;
-        this.amount = amount;
-        this.entryDate = entryDate;
-        this.description = description;
-        this.wallet = wallet;
-        this.expense = expense;
-    }
-
-    /**
-     *
-     * @param id
-     * @param amount
-     * @param entryDate
-     * @param description
-     * @param wallet
-     * @param status
-     */
-    public BalanceHistory(int id, long amount, String entryDate, String description, Wallet wallet, Status status) {
-        this.id = id;
-        this.amount = amount;
-        this.entryDate = entryDate;
-        this.description = description;
-        this.wallet = wallet;
-        this.status = status;
     }
 
     /**
@@ -175,43 +101,20 @@ public class BalanceHistory {
         this.description = description;
     }
 
-    public Wallet getWallet() {
+    public int getWallet() {
         return wallet;
     }
 
-    public void setWallet(Wallet wallet) {
+    public void setWallet(int wallet) {
         this.wallet = wallet;
     }
 
-    public Job getJob() {
-        return job;
+
+    public int getType() {
+        return type;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    public Income getIncome() {
-        return income;
-    }
-
-    public void setIncome(Income income) {
-        this.income = income;
-    }
-
-    public Expense getExpense() {
-        return expense;
-    }
-
-    public void setExpense(Expense expense) {
-        this.expense = expense;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setType(int type) {
+        this.type = type;
     }
 }

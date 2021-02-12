@@ -94,7 +94,7 @@ public class ExpenseRepository implements IExpenseRepository {
             do{
                 expenses.add(new Expense(cursor.getInt(0), cursor.getString(1),
                         findBalanceHistory(cursor),
-                        (new WalletRepository(this.context).findByID(cursor.getInt(2)))));
+                        cursor.getInt(2)));
 
             }while(cursor.moveToNext());
         }
@@ -115,7 +115,7 @@ public class ExpenseRepository implements IExpenseRepository {
         if(cursor.moveToFirst())
             expense = new Expense(cursor.getInt(0), cursor.getString(1),
                     findBalanceHistory(cursor),
-                    (new WalletRepository(this.context).findByID(cursor.getInt(2))));;
+                    cursor.getInt(2));;
 
 
         this.connection.getReadableDatabase().close();

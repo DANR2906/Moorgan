@@ -29,6 +29,7 @@ public class UserRepository implements IUserRepository {
     private DatabaseConnection connection;
 
     private Context context;
+
     /**
      * Class constructor
      * @param context
@@ -44,8 +45,6 @@ public class UserRepository implements IUserRepository {
     @Override
     public boolean insert(@NonNull String name, @NonNull String lastName, @NonNull String birthDate,
                           @NonNull String career, int walletID) {
-
-        this.connection.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 

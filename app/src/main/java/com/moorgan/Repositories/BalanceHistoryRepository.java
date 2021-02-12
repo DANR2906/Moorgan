@@ -36,13 +36,14 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
 
     @Override
     public boolean insert(long amount, @NonNull String entryDate, @NonNull String description,
-                          int walletID) {
+                          int walletID, int type) {
         ContentValues values = new ContentValues();
 
         values.put("bal_amount", amount);
         values.put("bal_entry_date", entryDate);
         values.put("bal_description", description);
         values.put("bal_wallet", walletID);
+        values.put("bal_type", type);
 
         try {
             this.connection.getWritableDatabase().insert(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY,
@@ -55,6 +56,27 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
             this.connection.getWritableDatabase().close();
             return false;
         }
+    }
+
+    public int getLastID() {
+        int id = 0;
+        Cursor cursor = this.connection.getReadableDatabase().
+                query(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+
+        if(cursor.moveToLast())
+            id = cursor.getInt(0);
+
+        cursor.close();
+        this.connection.getReadableDatabase().close();
+
+        return id;
+
     }
 
     @Override
@@ -84,7 +106,7 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
         List<BalanceHistory> balanceHistories = new ArrayList<>();
 
         Cursor cursor = this.connection.getReadableDatabase().
-                query(AdminDBHelper.MOORGAN_TABLE_WALLET,
+                query(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY,
                         null,
                         null,
                         null,
@@ -95,43 +117,19 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
         if(cursor.moveToFirst()){
             do{
 
-                List<Integer> balanceHistoryType = balanceHistoryType(cursor);
-                switch (balanceHistoryType.get(0)){
+                BalanceHistory balanceHistory = new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
+                        cursor.getString(2), cursor.getString(3),
+                        cursor.getInt(4));
 
-                    case 0:
-                        break;
+                balanceHistory.setType(cursor.getInt(5));
 
-                    case 1:
-                        balanceHistories.add( new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                                cursor.getString(2), cursor.getString(3),
-                                (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                                (new JobRepository(this.context)).findById(balanceHistoryType.get(1))));
-                        break;
+                balanceHistories.add(balanceHistory);
 
-                    case 2:
-                        balanceHistories.add(new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                                cursor.getString(2), cursor.getString(3),
-                                (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                                (new IncomeRepository(this.context)).findById(balanceHistoryType.get(1))));
-                        break;
-
-                    case 3:
-                        balanceHistories.add( new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                                cursor.getString(2), cursor.getString(3),
-                                (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                                (new ExpenseRepository(this.context)).findById(balanceHistoryType.get(1))));
-                        break;
-
-                    case 4:
-                        balanceHistories.add( new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                                cursor.getString(2), cursor.getString(3),
-                                (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                                (new StatusRepository(this.context)).findById(balanceHistoryType.get(1))));
-                        break;
-                }
 
             }while(cursor.moveToNext());
         }
+
+        cursor.close();
         this.connection.getReadableDatabase().close();
 
         return balanceHistories;
@@ -147,127 +145,147 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
 
         if(cursor.moveToFirst()){
 
-            List<Integer> balanceHistoryType = balanceHistoryType(cursor);
-            switch (balanceHistoryType.get(0)){
+            balanceHistory = new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
+                    cursor.getString(2), cursor.getString(3),
+                    cursor.getInt(4));
 
-                case 0:
-                    break;
-
-                case 1:
-                    balanceHistory = new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                            cursor.getString(2), cursor.getString(3),
-                            (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                            (new JobRepository(this.context)).findById(balanceHistoryType.get(1)));
-                    break;
-
-                case 2:
-                    balanceHistory = new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                            cursor.getString(2), cursor.getString(3),
-                            (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                            (new IncomeRepository(this.context)).findById(balanceHistoryType.get(1)));
-                    break;
-
-                case 3:
-                    balanceHistory = new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                            cursor.getString(2), cursor.getString(3),
-                            (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                            (new ExpenseRepository(this.context)).findById(balanceHistoryType.get(1)));
-                    break;
-
-                case 4:
-                    balanceHistory = new BalanceHistory(cursor.getInt(0), cursor.getLong(1),
-                            cursor.getString(2), cursor.getString(3),
-                            (new WalletRepository(this.context)).findByID(cursor.getInt(4)),
-                            (new StatusRepository(this.context)).findById(balanceHistoryType.get(1)));
-                    break;
-            }
+            balanceHistory.setType(cursor.getInt(5));
 
 
         }
 
 
-
+        cursor.close();
         this.connection.getReadableDatabase().close();
+
 
         return balanceHistory;
     }
 
+
     /**
      *
-     * @param cursor
+     * @param balanceHistoryID
      * @return
      */
-    private List<Integer> balanceHistoryType(Cursor cursor){
-        List<Integer> typeAndID = new ArrayList<>();
+    private int getJobID(int balanceHistoryID){
+        int jobID = 0;
 
-        Cursor cursor2 = this.connection.getReadableDatabase().
+        Cursor cursor = this.connection.getReadableDatabase().
                 rawQuery("SELECT * FROM "
                         + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_JOB +
-                        " WHERE balanceHistory_id ='" + cursor.getInt(0) + "'", null);
+                        " WHERE balanceHistory_id ='" + balanceHistoryID + "'", null);
 
 
-        if (cursor2.moveToFirst()) {
+        if (cursor.moveToFirst()) {
 
-            typeAndID.add(1);
-            typeAndID.add(cursor2.getInt(1));
+            jobID = cursor.getInt(1);
 
+            cursor.close();
             this.connection.getReadableDatabase().close();
 
-            return typeAndID;
+            return jobID;
 
         }
 
-        cursor2 = this.connection.getReadableDatabase().
-                rawQuery("SELECT * FROM "
-                        + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_INCOME +
-                        " WHERE balanceHistory_id ='" + cursor.getInt(0) + "'", null);
+        cursor.close();
+        this.connection.getReadableDatabase().close();
 
-
-        if (cursor2.moveToFirst()) {
-
-            typeAndID.add(2);
-            typeAndID.add(cursor2.getInt(1));
-
-            this.connection.getReadableDatabase().close();
-
-            return typeAndID;
-        }
-
-        cursor2 = this.connection.getReadableDatabase().
-                rawQuery("SELECT * FROM "
-                        + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_EXPENSE +
-                        " WHERE balanceHistory_id ='" + cursor.getInt(0) + "'", null);
-
-
-        if (cursor2.moveToFirst()) {
-
-            typeAndID.add(3);
-            typeAndID.add(cursor2.getInt(1));
-
-            this.connection.getReadableDatabase().close();
-
-            return typeAndID;
-        }
-
-        cursor2 = this.connection.getReadableDatabase().
-                rawQuery("SELECT * FROM "
-                        + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_STATUS +
-                        " WHERE balanceHistory_id ='" + cursor.getInt(0) + "'", null);
-
-
-        if (cursor2.moveToFirst()) {
-
-            typeAndID.add(4);
-            typeAndID.add(cursor2.getInt(1));
-
-            this.connection.getReadableDatabase().close();
-
-            return typeAndID;
-        }
-
-        typeAndID.add(0);
-
-        return typeAndID;
+        return  jobID;
 
     }
+
+    /**
+     *
+     * @param balanceHistoryID
+     * @return
+     */
+    private int getIncomeID(int balanceHistoryID){
+        int incomeID = 0;
+
+        Cursor cursor = this.connection.getReadableDatabase().
+                rawQuery("SELECT * FROM "
+                        + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_INCOME +
+                        " WHERE balanceHistory_id ='" + balanceHistoryID + "'", null);
+
+
+        if (cursor.moveToFirst()) {
+
+            incomeID = cursor.getInt(1);
+
+            cursor.close();
+            this.connection.getReadableDatabase().close();
+
+            return incomeID;
+        }
+
+        cursor.close();
+        this.connection.getReadableDatabase().close();
+
+        return  incomeID;
+
+    }
+
+    /**
+     *
+     * @param balanceHistoryID
+     * @return
+     */
+    private int getExpenseID(int balanceHistoryID){
+        int expenseID = 0;
+
+        Cursor cursor = this.connection.getReadableDatabase().
+                rawQuery("SELECT * FROM "
+                        + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_EXPENSE +
+                        " WHERE balanceHistory_id ='" + balanceHistoryID + "'", null);
+
+
+        if (cursor.moveToFirst()) {
+
+            expenseID = cursor.getInt(1);
+
+            cursor.close();
+            this.connection.getReadableDatabase().close();
+
+            return expenseID;
+        }
+
+        cursor.close();
+        this.connection.getReadableDatabase().close();
+
+        return  expenseID;
+
+    }
+
+    /**
+     *
+     * @param balanceHistoryID
+     * @return
+     */
+    private int getStatusID(int balanceHistoryID){
+        int statusID = 0;
+
+        Cursor cursor  = this.connection.getReadableDatabase().
+                rawQuery("SELECT * FROM "
+                        + AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_STATUS +
+                        " WHERE balanceHistory_id ='" + balanceHistoryID + "'", null);
+
+
+        if (cursor.moveToFirst()) {
+
+            statusID = cursor.getInt(1);
+
+            cursor.close();
+            this.connection.getReadableDatabase().close();
+
+            return statusID;
+        }
+
+        cursor.close();
+        this.connection.getReadableDatabase().close();
+
+        return  statusID;
+
+    }
+
 }

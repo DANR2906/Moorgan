@@ -17,7 +17,7 @@ public interface IBalanceHistoryRepository {
      * @return
      */
     boolean insert(long amount, @NonNull String entryDate, @NonNull String description,
-                   int walletID);
+                   int walletID, int type);
 
     /**
      *

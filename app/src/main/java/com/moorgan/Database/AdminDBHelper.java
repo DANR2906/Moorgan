@@ -128,6 +128,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
                 "bal_entry_date DateTime NOT NULL DEFAULT (CURRENT_TIMESTAMP)," +
                 "bal_description text," +
                 "bal_wallet integer," +
+                "bal_type integer default 0," +
                 "FOREIGN KEY (bal_wallet)" +
                 "   REFERENCES " + MOORGAN_TABLE_WALLET + "(wal_id) )");
 

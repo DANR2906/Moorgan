@@ -106,7 +106,11 @@ public class JobRepository implements IJobRepository {
 
         if(cursor.moveToFirst()){
             do{
-                jobs.add(new Job());
+                jobs.add(new Job(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(5),
+                        cursor.getLong(3), cursor.getInt(4),
+                        cursor.getInt(6), findAllBalanceHistories(cursor), findAllClients(cursor),
+                        findAllStatus(cursor)));
             }while(cursor.moveToNext());
         }
         this.connection.getReadableDatabase().close();
@@ -123,12 +127,11 @@ public class JobRepository implements IJobRepository {
                         + AdminDBHelper.MOORGAN_TABLE_JOB + " WHERE job_id ='" + id + "'" , null);
 
         if(cursor.moveToFirst()){
-            User user = (new UserRepository(this.context)).findByID(cursor.getInt(6));
 
             job = new Job(cursor.getInt(0), cursor.getString(1),
                     cursor.getString(2), cursor.getString(5),
                     cursor.getLong(3), cursor.getInt(4),
-                    user, findAllBalanceHistories(cursor), findAllClients(cursor),
+                    cursor.getInt(6), findAllBalanceHistories(cursor), findAllClients(cursor),
                     findAllStatus(cursor));
 
         }
@@ -235,10 +238,9 @@ public class JobRepository implements IJobRepository {
      * @param cursor
      * @return
      */
-    private List<BalanceHistory> findAllBalanceHistories(Cursor cursor) {
+    private List<Integer> findAllBalanceHistories(Cursor cursor) {
 
         List<Integer> balanceHistoriesID = new ArrayList<>();
-        List<BalanceHistory> balanceHistories = new ArrayList<>();
 
         Cursor cursor2 = this.connection.getReadableDatabase().
                 rawQuery("SELECT * FROM "
@@ -253,11 +255,9 @@ public class JobRepository implements IJobRepository {
         }
 
 
-        for (Integer balanceHistoryID : balanceHistoriesID)
-            balanceHistories.add
-                    ((new BalanceHistoryRepository(this.context)).findByID(balanceHistoryID));
 
-        return balanceHistories;
+
+        return balanceHistoriesID;
     }
 
     /**
@@ -265,10 +265,9 @@ public class JobRepository implements IJobRepository {
      * @param cursor
      * @return
      */
-    private List<Client> findAllClients(Cursor cursor) {
+    private List<Integer> findAllClients(Cursor cursor) {
 
         List<Integer> clientsID = new ArrayList<>();
-        List<Client> clients = new ArrayList<>();
 
         Cursor cursor2 = this.connection.getReadableDatabase().
                 rawQuery("SELECT * FROM "
@@ -283,10 +282,9 @@ public class JobRepository implements IJobRepository {
         }
 
 
-        for (Integer clientID : clientsID)
-                clients.add((new ClientRepository(this.context)).findById(clientID));
 
-        return clients;
+
+        return clientsID;
     }
 
     /**

@@ -55,7 +55,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
                 public void onClick(View v) {
 
                     changeView(holder);
-
+                    /*
                     holder.creationDate.setText(job.getCreationDate().toString());
                     holder.endDate.setText(job.getEndDate().toString());
                     holder.payment.setText(String.valueOf(job.getPayment()));
@@ -73,9 +73,10 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
                     int clients = job.getClients().size();
 
                     holder.numberOfClients.setText("---" + (clients-1) + "+---");
-                    holder.clientName.setText(job.getClients().get(0).getName());
 
                     holder.status.setText(getCurrentStatus(job).getName());
+
+                     */
                 }
             });
 

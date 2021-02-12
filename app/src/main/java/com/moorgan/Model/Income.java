@@ -17,7 +17,7 @@ public class Income {
     private BalanceHistory balanceHistory;
 
     //
-    private Wallet wallet;
+    private int wallet;
 
     /**
      * Class constructor
@@ -27,11 +27,21 @@ public class Income {
      * @param balanceHistory
      * @param wallet
      */
-    public Income(int id, String title, BalanceHistory balanceHistory, Wallet wallet) {
+    public Income(int id, String title, BalanceHistory balanceHistory, int wallet) {
         this.id = id;
         this.title = title;
         this.balanceHistory = balanceHistory;
         this.wallet = wallet;
+    }
+
+    /**
+     * Class constructor
+     * @param id
+     * @param title
+     */
+    public Income(int id, String title) {
+        this.id = id;
+        this.title = title;
     }
 
     /**
@@ -67,11 +77,11 @@ public class Income {
         this.balanceHistory = balanceHistory;
     }
 
-    public Wallet getWallet() {
+    public int getWallet() {
         return wallet;
     }
 
-    public void setWallet(Wallet wallet) {
+    public void setWallet(int wallet) {
         this.wallet = wallet;
     }
 }

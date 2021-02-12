@@ -29,7 +29,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@+id/arrow_down"/>
+            android:layout_toLeftOf="@+id/arrow"/>
 
         <ImageButton
             android:id="@+id/arrow"

@@ -80,7 +80,7 @@ public class WalletRepository implements IWalletRepository {
 
     @Override
     public Wallet findByID(int id) {
-        Wallet wallet = null;
+        Wallet wallet = new Wallet();
 
         Cursor cursor = this.connection.getReadableDatabase().
                 rawQuery("SELECT * FROM "
@@ -88,15 +88,18 @@ public class WalletRepository implements IWalletRepository {
 
         if(cursor.moveToFirst()){
 
-            wallet = new Wallet(cursor.getInt(0), cursor.getLong(1),
-                                findAllBalanceHistories(cursor),
-                                findAllIncomes(cursor),
-                                findAllExpenses(cursor));
+            wallet = new Wallet(cursor.getInt(0), cursor.getLong(1));
 
         }
 
-
+        cursor.close();
         this.connection.getReadableDatabase().close();
+
+
+        wallet.setBalanceHistory(findAllBalanceHistories(id));
+        wallet.setIncomes(findAllIncomes(id));
+        wallet.setExpenses(findAllExpenses(id));
+
 
         return wallet;
     }
@@ -119,29 +122,53 @@ public class WalletRepository implements IWalletRepository {
 
 
                 wallets.add(new Wallet(cursor.getInt(0), cursor.getLong(1),
-                                        findAllBalanceHistories(cursor),
-                                        findAllIncomes(cursor),
-                                        findAllExpenses(cursor)));
+                                        findAllBalanceHistories(cursor.getInt(0)),
+                                        findAllIncomes(cursor.getInt(0)),
+                                        findAllExpenses(cursor.getInt(0))));
 
             }while(cursor.moveToNext());
         }
+
+        cursor.close();
         this.connection.getReadableDatabase().close();
 
         return wallets;
     }
 
+    @Override
+    public boolean updateBalance(int walletID, long balance) {
+
+        ContentValues values = new ContentValues();
+        values.put("wal_balance", balance);
+
+        try{
+            this.connection.getWritableDatabase()
+                    .update(AdminDBHelper.MOORGAN_TABLE_WALLET, values, "wal_id='" + walletID + "'", null);
+
+            this.connection.getWritableDatabase().close();
+            return true;
+        }catch (Exception ex){
+            Log.e("Update DB error: ", ex.getMessage());
+            this.connection.getWritableDatabase().close();
+            return false;
+        }
+    }
+
     /**
      *
-     * @param cursor
+     * @param walletID
      * @return
      */
-    private List<BalanceHistory> findAllBalanceHistories(Cursor cursor){
+    private List<BalanceHistory> findAllBalanceHistories(int walletID){
         List<BalanceHistory> balanceHistories = new ArrayList<>();
 
 
-        for(BalanceHistory balanceHistory : (new BalanceHistoryRepository(this.context)).findAll() )
-            if(balanceHistory.getWallet().getId() == cursor.getInt(0))
+        for(BalanceHistory balanceHistory : (new BalanceHistoryRepository(this.context)).findAll() ){
+            if(balanceHistory.getWallet() == walletID)
                 balanceHistories.add(balanceHistory);
+        }
+
+
 
         return balanceHistories;
     }
@@ -149,15 +176,15 @@ public class WalletRepository implements IWalletRepository {
 
     /**
      *
-     * @param cursor
+     * @param walletID
      * @return
      */
-    private List<Income> findAllIncomes(Cursor cursor){
+    private List<Income> findAllIncomes(int walletID){
         List<Income> incomes = new ArrayList<>();
 
 
         for(Income income : (new IncomeRepository(this.context)).findAll() )
-            if(income.getWallet().getId() == cursor.getInt(0))
+            if(income.getWallet() == walletID)
                 incomes.add(income);
 
         return incomes;
@@ -165,15 +192,15 @@ public class WalletRepository implements IWalletRepository {
 
     /**
      *
-     * @param cursor
+     * @param walletID
      * @return
      */
-    private List<Expense> findAllExpenses(Cursor cursor){
+    private List<Expense> findAllExpenses(int walletID){
         List<Expense> expenses = new ArrayList<>();
 
 
         for(Expense expense : (new ExpenseRepository(this.context)).findAll() )
-            if(expense.getWallet().getId() == cursor.getInt(0))
+            if(expense.getWallet() == walletID)
                 expenses.add(expense);
 
         return expenses;

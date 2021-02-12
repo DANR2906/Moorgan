@@ -17,7 +17,7 @@ public class Expense {
     private BalanceHistory balanceHistory;
 
     //
-    private Wallet wallet;
+    private int wallet;
 
     /**
      * Class constructor
@@ -27,7 +27,7 @@ public class Expense {
      * @param balanceHistory
      * @param wallet
      */
-    public Expense(int id, String title, BalanceHistory balanceHistory, Wallet wallet) {
+    public Expense(int id, String title, BalanceHistory balanceHistory, int wallet) {
         this.id = id;
         this.title = title;
         this.balanceHistory = balanceHistory;
@@ -66,11 +66,11 @@ public class Expense {
         this.balanceHistory = balanceHistory;
     }
 
-    public Wallet getWallet() {
+    public int getWallet() {
         return wallet;
     }
 
-    public void setWallet(Wallet wallet) {
+    public void setWallet(int wallet) {
         this.wallet = wallet;
     }
 }

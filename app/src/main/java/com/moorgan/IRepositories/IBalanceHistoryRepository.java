@@ -39,5 +39,11 @@ public interface IBalanceHistoryRepository {
      */
     BalanceHistory findByID(int id);
 
+    /**
+     *
+     * @return
+     */
+    int getLastID();
+
 
 }

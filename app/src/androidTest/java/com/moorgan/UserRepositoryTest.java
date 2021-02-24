@@ -49,9 +49,9 @@ public class UserRepositoryTest {
 
         Assert.assertTrue(walletRepository.insert(1,1000));
 
-        Assert.assertTrue(clientRepository.insert("Pedro Ramirez", 1));
+        Assert.assertTrue(clientRepository.insert("Pedro Ramirez", "3251653765", 1));
 
-        Assert.assertTrue(clientRepository.insert("Maria Ramirez", 1));
+        Assert.assertTrue(clientRepository.insert("Maria Ramirez", "3269353765", 1));
 
 
         List<Integer> clients = new ArrayList<>();
@@ -59,7 +59,7 @@ public class UserRepositoryTest {
         clients.add(1);
         clients.add(2);
 
-        Assert.assertTrue(balanceHistoryRepository.insert(0, "30/01/2021", "Prueba Ingreso tb 1", 1, 1));
+        //Assert.assertTrue(balanceHistoryRepository.insert(0, "30/01/2021", "Prueba Ingreso tb 1", 1, 1));
 
         Assert.assertTrue(jobRepository.insert("Trabajo de prueba 1",
                                             "12/02/2021",
@@ -67,7 +67,6 @@ public class UserRepositoryTest {
                                                 50000,
                                                 0,
                                                 clients,
-                                                1,
                                                 1));
 
         Assert.assertTrue(userRepository.insert("David Alejandro",
@@ -97,8 +96,6 @@ public class UserRepositoryTest {
         assertThat(u.getJobs().size(), equalTo(1));
 
         assertThat(u.getJobs().get(0).getName(), equalTo("Trabajo de prueba 1"));
-
-        assertThat(balanceHistoryRepository.findByID(u.getJobs().get(0).getBalanceHistory().get(0)).getAmount(), equalTo((long)0));
 
         assertThat(u.getClients().size(), equalTo(2));
 

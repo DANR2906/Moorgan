@@ -173,6 +173,7 @@ public class AdminDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + MOORGAN_TABLE_CLIENT + "(" +
                 "cli_id integer PRIMARY KEY AUTOINCREMENT," +
                 "cli_name varchar(40) NOT NULL," +
+                "cli_phone_number varchar(10) NOT NULL," +
                 "cli_user integer," +
                 "FOREIGN KEY (cli_user)" +
                 "   REFERENCES "+ MOORGAN_TABLE_USER + "(use_id) )");

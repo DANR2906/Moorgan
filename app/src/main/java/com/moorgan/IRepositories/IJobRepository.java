@@ -20,8 +20,7 @@ public interface IJobRepository {
      * @return
      */
     boolean insert(@NonNull String name, @NonNull String creationDate, @NonNull String endDate,
-                   long payment, int finished, @NonNull List<Integer> clientsID, int userID,
-                   int balanceHistoryID);
+                   long payment, int finished, @NonNull List<Integer> clientsID, int userID);
 
     /**
      *
@@ -48,6 +47,14 @@ public interface IJobRepository {
      * @return
      */
     int getLastID();
+
+    /**
+     *
+     * @param balanceHistoryID
+     * @param jobID
+     * @return
+     */
+    boolean insertJobBalanceHistory(int balanceHistoryID, int jobID);
 
 
 

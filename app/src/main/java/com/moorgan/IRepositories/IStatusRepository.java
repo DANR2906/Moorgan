@@ -16,8 +16,7 @@ public interface IStatusRepository {
      * @param approve
      * @return
      */
-    boolean insert(@NonNull String name, long advancePayment, int approve, int jobID,
-                   int balanceHistoryID);
+    boolean insert(@NonNull String name, long advancePayment, int approve, int jobID);
 
     /**
      *
@@ -44,5 +43,13 @@ public interface IStatusRepository {
      * @return
      */
     int getLastID();
+
+    /**
+     *
+     * @param balanceHistoryID
+     * @param statusID
+     * @return
+     */
+    boolean insertStatusBalanceHistory(int balanceHistoryID, int statusID);
 
 }

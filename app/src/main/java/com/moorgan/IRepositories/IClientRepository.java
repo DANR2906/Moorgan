@@ -11,9 +11,11 @@ public interface IClientRepository {
     /**
      *
      * @param name
+     * @param phoneNumber
+     * @param userID
      * @return
      */
-    boolean insert(@NonNull String name, int userID);
+    boolean insert(@NonNull String name, @NonNull String phoneNumber , int userID);
 
     /**
      *

@@ -38,8 +38,7 @@ public class StatusRepository implements IStatusRepository {
 
 
     @Override
-    public boolean insert(@NonNull String name, long advancePayment, int approve, int jobID,
-                          int balanceHistoryID) {
+    public boolean insert(@NonNull String name, long advancePayment, int approve, int jobID) {
 
         ContentValues values = new ContentValues();
 
@@ -52,7 +51,7 @@ public class StatusRepository implements IStatusRepository {
             this.connection.getWritableDatabase().close();
 
             insertJobStatus(jobID, getLastID());
-            insertStatusBalanceHistory(balanceHistoryID, getLastID());
+            //insertStatusBalanceHistory(balanceHistoryID, getLastID());
 
             return true;
         }catch (Exception ex) {
@@ -157,6 +156,31 @@ public class StatusRepository implements IStatusRepository {
 
     /**
      *
+     * @param balanceHistoryID
+     * @param statusID
+     * @return
+     */
+    @Override
+    public boolean insertStatusBalanceHistory(int balanceHistoryID, int statusID) {
+        ContentValues values = new ContentValues();
+
+        values.put("balanceHistory_id", balanceHistoryID);
+        values.put("status_id", statusID);
+
+        try {
+            this.connection.getWritableDatabase().
+                    insert(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_STATUS, null, values);
+            this.connection.getWritableDatabase().close();
+            return true;
+        }catch (Exception ex) {
+            Log.e("Insertion DB error", ex.getMessage());
+            this.connection.getWritableDatabase().close();
+            return false;
+        }
+    }
+
+    /**
+     *
      * @param jobID
      * @param statusID
      * @return
@@ -178,29 +202,7 @@ public class StatusRepository implements IStatusRepository {
         }
     }
 
-    /**
-     *
-     * @param balanceHistoryID
-     * @param statusID
-     * @return
-     */
-    private boolean insertStatusBalanceHistory(int balanceHistoryID, int statusID) {
-        ContentValues values = new ContentValues();
 
-        values.put("balanceHistory_id", balanceHistoryID);
-        values.put("status_id", statusID);
-
-        try {
-            this.connection.getWritableDatabase().
-                    insert(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_STATUS, null, values);
-            this.connection.getWritableDatabase().close();
-            return true;
-        }catch (Exception ex) {
-            Log.e("Insertion DB error", ex.getMessage());
-            this.connection.getWritableDatabase().close();
-            return false;
-        }
-    }
 
     /**
      *

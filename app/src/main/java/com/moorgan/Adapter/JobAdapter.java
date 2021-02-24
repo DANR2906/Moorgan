@@ -1,6 +1,7 @@
 package com.moorgan.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,7 +173,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
             entryDateAmount = itemView.findViewById(R.id.entry_date_amount);
             entryDate = itemView.findViewById(R.id.entry_date_text);
             payment = itemView.findViewById(R.id.payment_text);
-
 
 
 

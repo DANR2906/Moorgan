@@ -39,8 +39,7 @@ public class JobRepository implements IJobRepository {
 
     @Override
     public boolean insert(@NonNull String name, @NonNull String creationDate, @NonNull String endDate,
-                          long payment, int finished,@NonNull List<Integer> clientsID, int userID,
-                          int balanceHistoryID) {
+                          long payment, int finished,@NonNull List<Integer> clientsID, int userID) {
 
         ContentValues values = new ContentValues();
 
@@ -55,11 +54,9 @@ public class JobRepository implements IJobRepository {
             this.connection.getWritableDatabase().insert(AdminDBHelper.MOORGAN_TABLE_JOB, null, values);
             this.connection.getWritableDatabase().close();
 
-            insertJobBalanceHistory(balanceHistoryID, getLastID());
-            //
             for (Integer clientID : clientsID)
                 insertClientJob(clientID, getLastID());
-            //
+
             insertUserJob(userID, getLastID());
 
             return true;
@@ -163,6 +160,25 @@ public class JobRepository implements IJobRepository {
 
     }
 
+    @Override
+    public boolean insertJobBalanceHistory(int balanceHistoryID, int jobID) {
+        ContentValues values = new ContentValues();
+
+        values.put("balanceHistory_id", balanceHistoryID);
+        values.put("job_id", jobID);
+
+        try {
+            this.connection.getWritableDatabase().
+                    insert(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_JOB, null, values);
+            this.connection.getWritableDatabase().close();
+            return true;
+        }catch (Exception ex) {
+            Log.e("Insertion DB error", ex.getMessage());
+            this.connection.getWritableDatabase().close();
+            return false;
+        }
+    }
+
     /**
      *
      * @param userID
@@ -209,29 +225,7 @@ public class JobRepository implements IJobRepository {
         }
     }
 
-    /**
-     *
-     * @param balanceHistoryID
-     * @param jobID
-     * @return
-     */
-    private boolean insertJobBalanceHistory(int balanceHistoryID, int jobID) {
-        ContentValues values = new ContentValues();
 
-        values.put("balanceHistory_id", balanceHistoryID);
-        values.put("job_id", jobID);
-
-        try {
-            this.connection.getWritableDatabase().
-                    insert(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY_JOB, null, values);
-            this.connection.getWritableDatabase().close();
-            return true;
-        }catch (Exception ex) {
-            Log.e("Insertion DB error", ex.getMessage());
-            this.connection.getWritableDatabase().close();
-            return false;
-        }
-    }
 
     /**
      *

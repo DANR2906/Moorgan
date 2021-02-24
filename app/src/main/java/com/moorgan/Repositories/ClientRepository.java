@@ -36,11 +36,12 @@ public class ClientRepository implements IClientRepository {
     }
 
     @Override
-    public boolean insert(@NonNull String name, int userID) {
+    public boolean insert(@NonNull String name, @NonNull String phoneNumber, int userID) {
 
         ContentValues values = new ContentValues();
 
         values.put("cli_name", name);
+        values.put("cli_phone_number", phoneNumber);
         values.put("cli_user", userID);
 
         try {
@@ -95,6 +96,7 @@ public class ClientRepository implements IClientRepository {
         if(cursor.moveToFirst()){
             do{
                 clients.add(new Client(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2),
                         findAllJobs(cursor),
                         cursor.getInt(2)));
 
@@ -115,6 +117,7 @@ public class ClientRepository implements IClientRepository {
 
         if(cursor.moveToFirst())
             client = new Client(cursor.getInt(0), cursor.getString(1),
+                                cursor.getString(2),
                                 findAllJobs(cursor),
                                 cursor.getInt(2));
 

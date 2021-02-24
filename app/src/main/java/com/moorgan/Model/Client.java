@@ -17,23 +17,19 @@ public class Client {
     private String name;
 
     //
+    private String phoneNumber;
+
+    //
     private List<Job> jobs;
 
     //
     private int user;
 
 
-    /**
-     * Class constructor
-     *
-     * @param id
-     * @param name
-     * @param jobs
-     * @param user
-     */
-    public Client(int id, String name, List<Job> jobs, int user) {
+    public Client(int id, String name, String phoneNumber, List<Job> jobs, int user) {
         this.id = id;
         this.name = name;
+        this.phoneNumber = phoneNumber;
         this.jobs = jobs;
         this.user = user;
     }
@@ -85,5 +81,13 @@ public class Client {
 
     public void setUser(int user) {
         this.user = user;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -77,26 +78,20 @@ public class RegisterActivity extends AppCompatActivity {
 
         int currentPage = viewPager.getCurrentItem();
 
-        //Revisar -------------------------------------------------------------------------------
         if(currentPage == NUM_PAGES-1){
+
+
+            SharedPreferences preferences = getSharedPreferences("logInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("isRegister", "1");
+            editor.commit();
 
             Intent intent = new Intent(this, MainActivity.class);
 
             startActivity(intent);
-            /*
-            IWalletRepository walletRepository = new WalletRepository(this);
-            walletRepository.insert(1,100);
-            Wallet w = walletRepository.findByID(1);
 
-            if(w != null) {
-                String s = w.getId() + " / " + w.getBalance();
-                Toast.makeText(this, "" + s, Toast.LENGTH_SHORT).show();
-            }
+            //Crear Usuario, Wallet
 
-            Toast.makeText(this, "Total: " + walletRepository.findAll().size(), Toast.LENGTH_SHORT).show();
-
-
-             */
         } else if(currentPage > NUM_PAGES-1)
             Toast.makeText(this, getString(R.string.toast_no_more_pages), Toast.LENGTH_SHORT).show();
         else {

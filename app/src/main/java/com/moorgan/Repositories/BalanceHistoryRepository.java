@@ -58,27 +58,13 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
         }
     }
 
-    public int getLastID() {
-        int id = 0;
-        Cursor cursor = this.connection.getReadableDatabase().
-                query(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
 
-        if(cursor.moveToLast())
-            id = cursor.getInt(0);
 
-        cursor.close();
-        this.connection.getReadableDatabase().close();
-
-        return id;
-
-    }
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public boolean deleteByID(int id) {
 
@@ -160,6 +146,28 @@ public class BalanceHistoryRepository implements IBalanceHistoryRepository {
 
 
         return balanceHistory;
+    }
+
+    @Override
+    public int getLastID() {
+        int id = 0;
+        Cursor cursor = this.connection.getReadableDatabase().
+                query(AdminDBHelper.MOORGAN_TABLE_BALANCE_HISTORY,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+
+        if(cursor.moveToLast())
+            id = cursor.getInt(0);
+
+        cursor.close();
+        this.connection.getReadableDatabase().close();
+
+        return id;
+
     }
 
 

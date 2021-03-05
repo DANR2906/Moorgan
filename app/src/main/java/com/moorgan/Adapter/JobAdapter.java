@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     private final Context context;
 
     private List<Job> jobs;
-
 
     /**
      * Class constructor
@@ -51,44 +51,59 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
 
             holder.title.setText(job.getName());
 
-            holder.arrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    changeView(holder);
-                    /*
-                    holder.creationDate.setText(job.getCreationDate().toString());
-                    holder.endDate.setText(job.getEndDate().toString());
-                    holder.payment.setText(String.valueOf(job.getPayment()));
+            holder.arrow.setOnClickListener(v -> {
 
-                    holder.entryDate.setText(job.getBalanceHistory()
-                            .get(job.getBalanceHistory().size()-1)
-                            .getEntryDate()
-                            .toString());
+                changeView(holder);
 
-                    holder.entryDateAmount.setText(String.valueOf(
-                            job.getBalanceHistory()
-                                    .get(job.getBalanceHistory().size()-1)
-                                    .getAmount()));
 
-                    int clients = job.getClients().size();
 
-                    holder.numberOfClients.setText("---" + (clients-1) + "+---");
+                /*
+                holder.creationDate.setText(job.getCreationDate().toString());
+                holder.endDate.setText(job.getEndDate().toString());
+                holder.payment.setText(String.valueOf(job.getPayment()));
 
-                    holder.status.setText(getCurrentStatus(job).getName());
+                holder.entryDate.setText(job.getBalanceHistory()
+                        .get(job.getBalanceHistory().size()-1)
+                        .getEntryDate()
+                        .toString());
 
-                     */
-                }
+                holder.entryDateAmount.setText(String.valueOf(
+                        job.getBalanceHistory()
+                                .get(job.getBalanceHistory().size()-1)
+                                .getAmount()));
+
+                int clients = job.getClients().size();
+
+                holder.numberOfClients.setText("---" + (clients-1) + "+---");
+
+                holder.status.setText(getCurrentStatus(job).getName());
+
+                 */
+
             });
 
 
-
     }
+
+
 
     @Override
     public int getItemCount() {
         return jobs.size();
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+
 
     /**
      *
@@ -152,6 +167,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         public TextView payment;
 
 
+
         public boolean isExpanded = false;
 
         public ViewHolder(@NonNull View itemView) {
@@ -177,6 +193,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
 
 
         }
+
+
 
 
         public boolean isExpanded() {

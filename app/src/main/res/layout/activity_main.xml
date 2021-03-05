@@ -37,6 +37,26 @@
             />
 
         <ImageView
+            android:id="@+id/ic_menu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_menu"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:onClick="showPopup"
+            />
+
+        <ImageView
+            android:id="@+id/ic_reload"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_reload_main"
+            android:layout_below="@+id/user_carrer"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            />
+
+        <ImageView
             android:id="@+id/ic_jobs"
             android:layout_width="30dp"
             android:layout_height="30dp"

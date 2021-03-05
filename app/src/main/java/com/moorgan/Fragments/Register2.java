@@ -54,35 +54,42 @@ public class Register2 extends Fragment {
     }
 
 
+    /**
+     *
+     * @return
+     */
+    public boolean sendData(){
 
-    public void sendData(){
+        if(birthDate.getText().toString().trim().isEmpty() || career.getText().toString().trim().isEmpty())
+            return false;
 
-        Bundle bundle = new Bundle();
+        else {
+            Bundle bundle = new Bundle();
 
-        getParentFragmentManager().setFragmentResultListener("register1", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                String name = result.getString("name");
-                String lastName = result.getString("lastName");
+            bundle.putString("birthDate", birthDate.getText().toString().trim());
+            bundle.putString("career", career.getText().toString().trim());
 
-                bundle.putString("name", name);
-                bundle.putString("lastName", lastName);
-            }
-        });
+            getParentFragmentManager().setFragmentResult("register2", bundle);
 
-        bundle.putString("birthDate", birthDate.getText().toString().trim());
-        bundle.putString("career", career.getText().toString().trim());
 
-        getParentFragmentManager().setFragmentResult("register2", bundle);
+
+            return true;
+        }
 
     }
 
+    /**
+     *
+     */
     public void showDatePickerDialog() {
         DialogFragment newFragment = new DatePickerFragment(this.birthDate);
         newFragment.show(getParentFragmentManager(), "datePicker");
 
     }
 
+    /**
+     *
+     */
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 

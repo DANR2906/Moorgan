@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Register1">
+    tools:context=".Fragments.NewClient">
 
     <ScrollView
         android:id="@+id/scroll"
@@ -19,18 +19,18 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/ic_user_register"
+                android:id="@+id/ic_new_client"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_user_register"
                 android:layout_marginTop="80dp"/>
 
             <TextView
-                android:id="@+id/name_information"
+                android:id="@+id/client_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:text="@string/name_information"
+                android:text="@string/client_name"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="20dp" />
@@ -47,10 +47,10 @@
                 android:background="@drawable/register_field_border"/>
 
             <TextView
-                android:id="@+id/last_name_information"
+                android:id="@+id/client_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/last_name_information"
+                android:text="@string/client_phone_number"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -58,16 +58,29 @@
 
 
             <EditText
-                android:id="@+id/field_last_name"
+                android:id="@+id/field_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="20dp"
-                android:hint="@string/last_name_hint"
+                android:hint="@string/client_phone_number"
                 android:background="@drawable/register_field_border"/>
+
+            <Button
+                android:id="@+id/save_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/save_client_button_border"
+                android:text="@string/button_save_client"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="110dp"
+                android:layout_marginRight="110dp"
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</FrameLayout>

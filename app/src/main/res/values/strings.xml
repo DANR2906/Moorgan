@@ -30,7 +30,28 @@
     <string name="more_information">Más información</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: newClientJob Fragment -->
+    <string name="new_job">Nuevo trabajo</string>
+    <string name="new_client">Nuevo cliente</string>
+
+    <!-- TODO: new client Fragment -->
+    <string name="client_name">Nombe del cliente</string>
+    <string name="client_phone_number">Número de teléfono</string>
+    <string name="button_save_client">Guardar</string>
+
+    <!-- TODO: new job Fragment -->
+    <string name="select_client">Seleccione los clientes</string>
+    <string name="job_name">Ingrese el nombre del trabajo</string>
+    <string name="job_end_date">Ingrese la fecha de finalización</string>
+    <string name="job_end_date_hint">Fecha de finalización</string>
+    <string name="job_payment">Ingrese el monto a cobrar</string>
+    <string name="job_payment_hint">Ej: 1200000</string>
+
+
+    <!-- TODO: Toast Messages -->
+    <string name="empty_field">Rellene los campos</string>
+    <string name="string_is_not_numeric">Verifique el número ingresado</string>
+    <string name="error_client_add">error al ingresar el cliente</string>
+    <string name="successful_client_add">Nuevo cliente agregado</string>
 
 </resources>

@@ -98,7 +98,7 @@ public class ClientRepository implements IClientRepository {
                 clients.add(new Client(cursor.getInt(0), cursor.getString(1),
                         cursor.getString(2),
                         findAllJobs(cursor),
-                        cursor.getInt(2)));
+                        cursor.getInt(3)));
 
             }while(cursor.moveToNext());
         }
@@ -119,7 +119,7 @@ public class ClientRepository implements IClientRepository {
             client = new Client(cursor.getInt(0), cursor.getString(1),
                                 cursor.getString(2),
                                 findAllJobs(cursor),
-                                cursor.getInt(2));
+                                cursor.getInt(3));
 
 
         this.connection.getReadableDatabase().close();

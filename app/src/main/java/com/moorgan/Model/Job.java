@@ -40,6 +40,8 @@ public class Job {
     //
     private List<Status> status;
 
+
+
     /**
      * Class constructor
      *
@@ -157,4 +159,5 @@ public class Job {
     public void setStatus(List<Status> status) {
         this.status = status;
     }
+
 }

@@ -31,12 +31,19 @@ public class Register1 extends Fragment {
     /**
      *
      */
-    public void sendData(){
+    public boolean sendData(){
 
-        Bundle bundle = new Bundle();
-        bundle.putString("name", name.getText().toString().trim());
-        bundle.putString("lastName", lastName.getText().toString().trim());
-        getParentFragmentManager().setFragmentResult("register1", bundle);
+        if(name.getText().toString().trim().isEmpty() || lastName.getText().toString().trim().isEmpty())
+            return false;
+        else{
+            Bundle bundle = new Bundle();
+            bundle.putString("name", name.getText().toString().trim());
+            bundle.putString("lastName", lastName.getText().toString().trim());
+            getParentFragmentManager().setFragmentResult("register1", bundle);
+
+            return true;
+        }
+
 
     }
 }

@@ -76,7 +76,7 @@
 
 
             <EditText
-                android:id="@+id/field_phone_number"
+                android:id="@+id/field_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
@@ -104,6 +104,35 @@
                 android:layout_marginTop="20dp"
                 android:hint="@string/job_payment_hint"
                 android:background="@drawable/register_field_border"/>
+
+            <TextView
+                android:id="@+id/job_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/job_status"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="30dp"/>
+
+            <LinearLayout
+                android:id="@+id/status_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <ImageButton
+                android:id="@+id/add_status"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_add"
+                android:background="@drawable/register_field_border"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="130dp"
+                android:layout_marginRight="130dp"
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/save_job"

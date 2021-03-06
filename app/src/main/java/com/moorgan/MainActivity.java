@@ -15,10 +15,13 @@ import android.widget.Toast;
 
 import com.moorgan.Adapter.JobAdapter;
 import com.moorgan.IRepositories.IClientRepository;
+import com.moorgan.IRepositories.IUserRepository;
 import com.moorgan.Interfaces.BarLayoutController;
 import com.moorgan.Model.Client;
 import com.moorgan.Model.Job;
+import com.moorgan.Model.User;
 import com.moorgan.Repositories.ClientRepository;
+import com.moorgan.Repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +31,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     //Components
     private TextView clientsCount;
 
+    private TextView userName;
+
+    private TextView userCareer;
+
 
     //Repositories
+    private IUserRepository userRepository;
+
     private IClientRepository clientRepository;
 
     private PreferencesController preferencesController;
@@ -59,15 +68,28 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         this.clientRepository = new ClientRepository(this);
 
+        this.userRepository = new UserRepository(this);
+
         preferencesController = new PreferencesController(this);
 
         this.clientsCount = findViewById(R.id.clients_count);
 
-
         this.clientsCount.setText(String.valueOf(getClientsCount()));
+
+        this.userName = findViewById(R.id.user_name);
+
+        this.userCareer = findViewById(R.id.user_carrer);
+
+
+        User currentUser = getCurrentUser();
+
+        userName.setText(currentUser.getName() + " " + currentUser.getLastName());
+
+        userCareer.setText(currentUser.getCareer());
 
 
         this.recyclerView = findViewById(R.id.recycler_view);
+
         //Borrar
         List<Job> jobs = new ArrayList<>();
         for (int x = 0; x < 10; x++) {
@@ -82,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
+    /**
+     *
+     * @return
+     */
     private int getClientsCount(){
 
         int clients = 0;
@@ -92,6 +118,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
 
         return clients;
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    private User getCurrentUser(){
+
+        int currentUser = preferencesController.getCurrentUser();
+
+        return userRepository.findByID(currentUser);
 
     }
 

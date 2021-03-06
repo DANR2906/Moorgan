@@ -47,6 +47,12 @@
     <string name="job_payment">Ingrese el monto a cobrar</string>
     <string name="job_payment_hint">Ej: 1200000</string>
 
+    <string name="job_status">Fases del trabajo</string>
+    <string name="job_status_inicial">Fase inicial</string>
+    <string name="job_status_medium">Fase media</string>
+    <string name="job_status_final">Fase final</string>
+    <string name="job_status_new">Fase nueva</string>
+
 
     <!-- TODO: Toast Messages -->
     <string name="empty_field">Rellene los campos</string>
